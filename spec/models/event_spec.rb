@@ -1,13 +1,11 @@
-require "spec_helper"
+require "rails_helper"
 
 describe "Event" do
   it "creates an Event object" do
-    # binding.pry
-    event = Event.new name => "Startup Weekend"   #fix hash style
+    event = Event.new name: "Startup Weekend"
   end
 
   it "saves to the database" do
-    Event.create :name => "Startup Weekend"
-    expect(Event.count).to eq 1
+    expect { Event.create name: "Startup Weekend" }.to change{Event.count}.by(1)
   end
 end
