@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :events, only: [:index, :create]
+  resources :events, only: [:index, :new, :create]
 
 
   # The priority is based upon order of creation: first created -> highest priority.

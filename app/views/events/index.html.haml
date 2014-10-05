@@ -1,3 +1,11 @@
+- if flash[:error]
+  .flash_error
+    = flash[:error]
+- if flash[:notice]
+  .flash_notice
+    = flash[:notice]
+
+
 %h1 Events
 
 - if @upcoming_events.any?
@@ -11,3 +19,6 @@
   %table#past
     = render partial: "event_table_head"
     = render partial: "event", collection: @past_events
+
+%br
+= link_to "Create Event", new_event_path, class: "btn btn-primary"

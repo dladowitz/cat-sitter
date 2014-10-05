@@ -41,21 +41,53 @@ describe EventsController do
     end
   end
 
-  describe "POST Create" do
-    subject { post :create, event: { name: "Launch", location: "Moscone", start_date: 1.day.from_now, end_date: 3.days.from_now } }
+  describe "GET new" do
+    subject { get :new }
+    before  { subject }
 
-    it "returns http success" do
-      subject
-      expect(response).to redirect_to events_path
+    it "renders the new template" do
+      expect(response).to render_template :new
+    end
+  end
+
+  describe "POST create" do
+    subject { post :create, event: params }
+
+
+    context "with valid params" do
+      let(:params) { { name: "Angel Hack", location: "Moscone", start_date: 1.day.from_now, end_date: 3.days.from_now } }
+
+      it "returns http success" do
+        subject
+        expect(response).to redirect_to events_path
+      end
+
+      it "creates a new event" do
+        expect { subject }.to change{Event.count}.by 1
+      end
+
+      it "sets the flash correctly" do
+        subject
+        expect(flash[:message]).to eq "Event Created"
+      end
     end
 
-    it "creates a new event" do
-      expect { subject }.to change{Event.count}.by 1
-    end
+    context "with invalid params" do
+      let(:params) { { name: nil } }
 
-    it "sets the flash correctly" do
-      subject
-      expect(flash[:message]).to eq "Event Created"
+      it "returns http success" do
+        subject
+        expect(response).to redirect_to events_path
+      end
+
+      it "does not create a new event" do
+        expect { subject }.to_not change{Event.count}
+      end
+
+      it "sets the flash correctly" do
+        subject
+        expect(flash[:message]).to eq "You totally didn't do that right. Event not created"
+      end
     end
   end
 end

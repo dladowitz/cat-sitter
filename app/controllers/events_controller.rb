@@ -5,12 +5,20 @@ class EventsController < ApplicationController
     @past_events     = Event.where("start_date < ?", Time.now)
   end
 
+  def new
+    @event = Event.new
+
+  end
+
   def create
-    if Event.create(event_params)
-      flash[:message] = "Event Created"
+    event = Event.new(event_params)
+
+    if event.save
+      flash[:notice] = "Event Created"
     else
-      flash[:message] = "You did it wrong. The event wasn't created"
+      flash[:error] = "You totally didn't do that right. Event not created"
     end
+
     redirect_to events_path
   end
 
