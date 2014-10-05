@@ -4,6 +4,11 @@ describe EventsController do
   describe "GET index" do
     subject { get :index }
 
+    it "renders the index template" do
+      subject
+      expect(response).to render_template :index
+    end
+
     context "when there are only upcoming events" do
       before  { Event.create(name: "Startup Weekend", location: "The Hub", start_date: 1.day.from_now) }
 
@@ -35,4 +40,24 @@ describe EventsController do
       end
     end
   end
+
+  describe "POST Create" do
+    subject { post :create, event: { name: "Launch", location: "Moscone", start_date: 1.day.from_now, end_date: 3.days.from_now } }
+
+    it "returns http success" do
+      subject
+      expect(response).to redirect_to events_path
+    end
+
+    it "creates a new event" do
+      expect { subject }.to change{Event.count}.by 1
+    end
+
+    it "sets the flash correctly" do
+      subject
+      expect(flash[:message]).to eq "Event Created"
+    end
+  end
 end
+
+

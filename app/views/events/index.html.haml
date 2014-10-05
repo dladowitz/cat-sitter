@@ -1,0 +1,13 @@
+%h1 Events
+
+- if @upcoming_events.any?
+  %h2 Upcoming Events
+  %table#upcoming
+    = render partial: "event_table_head"
+    = render partial: "event", collection: @upcoming_events
+
+-if @past_events.any?
+  %h2 Past Events
+  %table#past
+    = render partial: "event_table_head"
+    = render partial: "event", collection: @past_events
