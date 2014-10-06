@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require font-awesome
  *= require_tree .
 */
 
@@ -16,6 +17,7 @@
 .main_container {
   float: left;
   margin-left: 40px;
+  width: 80%
 }
 .mb10 {
   margin-bottom: 10px;

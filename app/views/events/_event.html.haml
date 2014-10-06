@@ -1,5 +1,8 @@
 %tr
-  %td= event.name
+  %td
+    %a{:href => "#"}= event.name
   %td= event.location
-  %td= event.start_date
-  %td= event.end_date
+  %td= event.start_date.to_date  #add decorator
+  %td= event.end_date.to_date if event.end_date  #add decorator
+  %td.hidden-480
+    %span.label.label-sm.label-warning Expiring

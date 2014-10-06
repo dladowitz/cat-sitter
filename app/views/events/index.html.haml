@@ -5,18 +5,17 @@
   .flash_notice
     = flash[:notice]
 
-
 %h1 Events
 
 - if @upcoming_events.any?
-  %h2 Upcoming Events
-  %table#upcoming
+  %h3 Upcoming
+  %table#sample-table-1.table.table-striped.table-bordered.table-hover
     = render partial: "event_table_head"
     = render partial: "event", collection: @upcoming_events
 
 -if @past_events.any?
-  %h2 Past Events
-  %table#past
+  %h4 Past
+  %table#sample-table-1.table.table-striped.table-bordered.table-hover
     = render partial: "event_table_head"
     = render partial: "event", collection: @past_events
 
