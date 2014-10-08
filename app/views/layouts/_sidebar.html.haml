@@ -2,27 +2,9 @@
 #sidebar.sidebar.responsive
   :javascript
     try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
-  #sidebar-shortcuts.sidebar-shortcuts
-    #sidebar-shortcuts-large.sidebar-shortcuts-large
-      %button.btn.btn-success
-        %i.ace-icon.fa.fa-signal
-      %button.btn.btn-info
-        %i.ace-icon.fa.fa-pencil
-      / #section:basics/sidebar.layout.shortcuts
-      %button.btn.btn-warning
-        %i.ace-icon.fa.fa-users
-      %button.btn.btn-danger
-        %i.ace-icon.fa.fa-cogs
-      / /section:basics/sidebar.layout.shortcuts
-    #sidebar-shortcuts-mini.sidebar-shortcuts-mini
-      %span.btn.btn-success
-      %span.btn.btn-info
-      %span.btn.btn-warning
-      %span.btn.btn-danger
-  / /.sidebar-shortcuts
   %ul.nav.nav-list
     %li
-      %a{:href => "index.html"}
+      %a{:href => "/events"}
         %i.menu-icon.fa.fa-tachometer
         %span.menu-text Events
       %b.arrow
@@ -225,47 +207,3 @@
             %i.menu-icon.fa.fa-caret-right
             Login & Register
           %b.arrow
-    %li.active.open
-      %a.dropdown-toggle{:href => "#"}
-        %i.menu-icon.fa.fa-file-o
-        %span.menu-text
-          Other Pages
-          / #section:basics/sidebar.layout.badge
-          %span.badge.badge-primary 5
-          / /section:basics/sidebar.layout.badge
-        %b.arrow.fa.fa-angle-down
-      %b.arrow
-      %ul.submenu
-        %li
-          %a{:href => "faq.html"}
-            %i.menu-icon.fa.fa-caret-right
-            FAQ
-          %b.arrow
-        %li.active
-          %a{:href => "error-404.html"}
-            %i.menu-icon.fa.fa-caret-right
-            Error 404
-          %b.arrow
-        %li
-          %a{:href => "error-500.html"}
-            %i.menu-icon.fa.fa-caret-right
-            Error 500
-          %b.arrow
-        %li
-          %a{:href => "grid.html"}
-            %i.menu-icon.fa.fa-caret-right
-            Grid
-          %b.arrow
-        %li
-          %a{:href => "blank.html"}
-            %i.menu-icon.fa.fa-caret-right
-            Blank Page
-          %b.arrow
-  / /.nav-list
-  / #section:basics/sidebar.layout.minimize
-  #sidebar-collapse.sidebar-toggle.sidebar-collapse
-    %i.ace-icon.fa.fa-angle-double-left{"data-icon1" => "ace-icon fa fa-angle-double-left", "data-icon2" => "ace-icon fa fa-angle-double-right"}
-  / /section:basics/sidebar.layout.minimize
-  :javascript
-    try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-/ /section:basics/sidebar

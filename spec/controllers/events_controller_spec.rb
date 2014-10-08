@@ -53,7 +53,6 @@ describe EventsController do
   describe "POST create" do
     subject { post :create, event: params }
 
-
     context "with valid params" do
       let(:params) { { name: "Angel Hack", location: "Moscone", start_date: 1.day.from_now, end_date: 3.days.from_now } }
 
@@ -68,7 +67,7 @@ describe EventsController do
 
       it "sets the flash correctly" do
         subject
-        expect(flash[:message]).to eq "Event Created"
+        expect(flash[:notice]).to eq "Event Created"
       end
     end
 
@@ -86,7 +85,112 @@ describe EventsController do
 
       it "sets the flash correctly" do
         subject
-        expect(flash[:message]).to eq "You totally didn't do that right. Event not created"
+        expect(flash[:error]).to eq "You totally didn't do that right. Event not created"
+      end
+    end
+  end
+
+  describe "GET show" do
+    context "when event is found in database" do
+      let!(:event) { Event.create(name: "Railsbridge workshop") }
+      subject { get :show, { id: event.id } }
+      before { subject }
+
+      it "finds event" do
+        expect(assigns(:event)).to eq event
+      end
+    end
+
+    context "when event is not in database" do
+      subject { get :show, { id: "not a real id" } }
+      before { subject }
+
+      it "doesn't find the event" do
+        expect(assigns(:event)).to be_nil
+      end
+
+      it "redirects to the index page" do
+        expect(response).to redirect_to events_path
+      end
+
+      it "has a flash error" do
+        expect(flash[:error]).to eq "Nope, not gonna god it. No such event."
+      end
+    end
+  end
+
+  describe "GET edit" do
+    let(:event) { Event.create name: "AWS RE:Invent" }
+    before { subject }
+
+    context "when the event is in the database" do
+      subject { get :edit, id: event.id }
+
+      it "renders the edit templte" do
+        expect(response).to render_template :edit
+      end
+
+      it "shows the correct event" do
+        expect(assigns(:event)).to eq event
+      end
+    end
+
+    context "when the event is not in the database" do
+      subject { get :edit, id: "not a real event id" }
+
+      it "redirects to the index page" do
+        expect(response).to redirect_to events_path
+      end
+
+      it "sets the flash" do
+        expect(flash[:error]).to eq "Event Not Found."
+      end
+    end
+
+
+  end
+
+  describe "PATCH update" do
+    context "when event is found in Daatabase" do
+      let!(:event) { Event.create(name: "Startup Weekend")}
+      before { subject }
+
+      context "with valid params" do
+        subject { patch :update, { id: event.id, event: { name: "Railsbridge" } } }
+
+        it "updates the event" do
+          expect(event.reload.name).to eq "Railsbridge"
+        end
+
+        it "sets the flash" do
+          expect(flash[:notice]).to eq "Event Updated."
+        end
+      end
+
+      context "with invalid params" do
+        subject { patch :update, { id: event.id, event: { name: nil } } }
+
+        it "does not update the event" do
+          expect(event.name).to eq "Startup Weekend"
+        end
+
+        it "sets the flash" do
+          expect(flash[:error]).to eq "That's not how we do it here. Event not updated."
+        end
+      end
+    end
+
+    context "when event is not found in Database" do
+      let!(:event) { Event.create(name: "Startup Weekend")}
+      subject { patch :update, { id: "not a real event id", event: { name: "Railsbridge" } } }
+      before { subject }
+
+      it "redirects to the index page" do
+        expect(response).to redirect_to events_path
+      end
+
+      it "sets the flash" do
+        expect(flash[:error]).to eq "Event Not Found."
       end
     end
   end

@@ -13,4 +13,9 @@ describe Event do
   it "saves to the database" do
     expect { Event.create name: "Startup Weekend" }.to change{Event.count}.by 1
   end
+
+  it "must have an end date that is after the start date" do
+    event = Event.new name: "Startup Weekend", start_date: Time.now, end_date: 1.day.ago
+    expect(event.save).to be_false
+  end
 end

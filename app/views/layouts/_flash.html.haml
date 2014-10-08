@@ -1,0 +1,11 @@
+- if flash[:error]
+  .flash.flash_error
+    = flash[:error]
+
+- if flash[:notice]
+  .flash.flash_notice
+    = flash[:notice]
+
+- if flash[:message]
+  .flash.flash_message
+    = flash[:message]
