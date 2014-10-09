@@ -11,6 +11,6 @@ describe Meal do
 
   it "should have a valid factory" do
     meal = create(:meal)
-    expect(meal).to be_instance_of Meal
+    expect(meal).to be_a Meal
   end
 end

@@ -3,5 +3,19 @@
 
 %h4= "Start Date: #{@event.start_date.to_date if @event.start_date}"  # add decorators
 %h4= "End Date:   #{@event.end_date.to_date if @event.end_date}"
-
 = link_to "Edit Event", edit_event_path(@event), class: "fa fa-pencil-square-o bigger-125 btn btn-primary"
+%hr
+%h4 Meals
+%table#sample-table-1.table.table-striped.table-bordered.table-hover
+  %tr
+    %th Meal
+    %th Headcount
+    %th Start
+
+  - @event.meals.each do |meal|
+    %tr
+      %td= meal.name
+      %td= meal.head_count
+      %td= meal.start_time.to_time
+= link_to "Add Meal", "#", class: "fa fa-pencil-square-o bigger-125 btn btn-success"
+

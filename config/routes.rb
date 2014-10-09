@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :events
-  resources :meals, only: [:index]
-
+  resources :events do
+    resources :meals, only: [:index, :new, :create]
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -23,7 +23,7 @@ class EventsController < ApplicationController
 
   def show
     unless @event = Event.find_by_id(params[:id])
-      flash[:error] = "Nope, not gonna god it. No such event."
+      flash[:error] = "Nope, not gonna do it. No such event."
       redirect_to events_path
     end
   end

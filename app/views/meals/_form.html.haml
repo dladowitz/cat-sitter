@@ -1,0 +1,9 @@
+
+= form_for [@event, @meal] do |f|
+  = f.label :name
+  = f.text_field :name
+  = f.label :head_count
+  = f.text_field :head_count
+  = f.label :start_time
+  = f.date_select :start_time #TODO need to change to calendar + time
+  = f.submit class: "btn btn-success"

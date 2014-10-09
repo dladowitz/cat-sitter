@@ -10,7 +10,7 @@ describe EventsController do
     end
 
     context "when there are only upcoming events" do
-      before  { Event.create(name: "Startup Weekend", location: "The Hub", start_date: 1.day.from_now) }
+      before  { Event.create(name: "Startup Weekend", location: "The Hub", start_date: 1.day.from_now, end_date: 3.days.from_now) }
 
       it "shows upcoming events" do
         subject
@@ -20,7 +20,7 @@ describe EventsController do
     end
 
     context "when there are only past events" do
-      before  { Event.create(name: "Startup Weekend", location: "The Hub", start_date: 1.day.ago) }
+      before  { Event.create(name: "Startup Weekend", location: "The Hub", start_date: 1.day.ago, end_date: 3.days.from_now) }
 
       it "shows past events" do
         subject
@@ -30,8 +30,8 @@ describe EventsController do
     end
 
     context "when there are both past and future events" do
-      before  { Event.create(name: "Startup Weekend", location: "The Hub", start_date: 1.day.from_now) }
-      before  { Event.create(name: "Startup Weekend", location: "The Hub", start_date: 1.day.ago) }
+      before  { Event.create(name: "Startup Weekend", location: "The Hub", start_date: 1.day.from_now, end_date: 3.days.from_now) }
+      before  { Event.create(name: "Startup Weekend", location: "The Hub", start_date: 1.day.ago, end_date: Time.now) }
 
       it "shows upcoming and past events" do
         subject
@@ -92,7 +92,7 @@ describe EventsController do
 
   describe "GET show" do
     context "when event is found in database" do
-      let!(:event) { Event.create(name: "Railsbridge workshop") }
+      let!(:event) { Event.create(name: "Railsbridge workshop", start_date: 1.day.from_now, end_date: 3.days.from_now) }
       subject { get :show, { id: event.id } }
       before { subject }
 
@@ -114,13 +114,13 @@ describe EventsController do
       end
 
       it "has a flash error" do
-        expect(flash[:error]).to eq "Nope, not gonna god it. No such event."
+        expect(flash[:error]).to eq "Nope, not gonna do it. No such event."
       end
     end
   end
 
   describe "GET edit" do
-    let(:event) { Event.create name: "AWS RE:Invent" }
+    let(:event) { Event.create name: "AWS RE:Invent", start_date: 1.day.from_now, end_date: 3.days.from_now }
     before { subject }
 
     context "when the event is in the database" do
@@ -152,7 +152,7 @@ describe EventsController do
 
   describe "PATCH update" do
     context "when event is found in Daatabase" do
-      let!(:event) { Event.create(name: "Startup Weekend")}
+      let!(:event) { Event.create(name: "Startup Weekend", start_date: 1.day.from_now, end_date: 3.days.from_now)}
       before { subject }
 
       context "with valid params" do
@@ -181,7 +181,7 @@ describe EventsController do
     end
 
     context "when event is not found in Database" do
-      let!(:event) { Event.create(name: "Startup Weekend")}
+      let!(:event) { Event.create(name: "Startup Weekend", start_date: 1.day.from_now, end_date: 3.days.from_now)}
       subject { patch :update, { id: "not a real event id", event: { name: "Railsbridge" } } }
       before { subject }
 
