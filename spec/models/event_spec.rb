@@ -33,6 +33,5 @@ describe Event do
       event.save
       expect(event.errors.messages[:end_date].first).to eq "must be after start date. (Unless you have a Flux Capacitor)."
     end
-
   end
 end
