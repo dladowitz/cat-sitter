@@ -22,8 +22,17 @@ describe Event do
     expect { Event.create name: "Startup Weekend", start_date: 1.day.from_now, end_date: 3.days.from_now }.to change{Event.count}.by 1
   end
 
-  it "must have an end date that is after the start date" do
-    event = Event.new name: "Startup Weekend", start_date: Time.now, end_date: 1.day.ago
-    expect(event.save).to be_false
+  context "when end date is before start date" do
+    let(:event) { Event.new name: "Startup Weekend", start_date: Time.now, end_date: 1.day.ago }
+
+    it "the event is not valid" do
+      expect(event.valid?).to eq false
+    end
+
+    it "has errors on the end date" do
+      event.save
+      expect(event.errors.messages[:end_date].first).to eq "must be after start date. (Unless you have a Flux Capacitor)."
+    end
+
   end
 end
