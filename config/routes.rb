@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  root to: "events#index", as: :home
+
   resources :events do
     resources :meals do
       resources :dishes
