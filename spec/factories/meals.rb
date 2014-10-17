@@ -3,8 +3,8 @@
 FactoryGirl.define do
   factory :meal do
     association :event
-    name "Dinner"
+    name       "Dinner"
     head_count 100
-    start_time 3.days.from_now
+    start_time 2.days.from_now
   end
 end

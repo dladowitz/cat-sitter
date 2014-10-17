@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141008041854) do
+ActiveRecord::Schema.define(version: 20141014215401) do
+
+  create_table "dishes", force: true do |t|
+    t.string   "name",            null: false
+    t.boolean  "vegetarian"
+    t.boolean  "vegan"
+    t.boolean  "gluten_free"
+    t.boolean  "external_vendor"
+    t.integer  "meal_id",         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "events", force: true do |t|
     t.string   "name",       null: false

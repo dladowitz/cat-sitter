@@ -32,26 +32,3 @@
 .m20 {
   margin: 20px;
 }
-
-/*flash messages*/
-.flash {
-  font-size: 20px;
-  line-height: 40px;
-  min-height: 40px;
-  border-radius: 10px;
-  text-align: center;
-  width: 85%;
-  margin: auto;
-  color: white;
-}
-.flash_error{
-  background-color: red;
-}
-
-.flash_notice {
-  background-color: greenyellow;
-}
-
-.flash_message {
-  background-color: cornflowerblue;
-}

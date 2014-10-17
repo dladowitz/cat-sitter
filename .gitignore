@@ -5,6 +5,7 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore RubyMine project files
+# TODO ignore globaly
 .idea
 
 # Ignore bundler config.

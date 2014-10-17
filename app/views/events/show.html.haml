@@ -14,8 +14,8 @@
 
   - @event.meals.each do |meal|
     %tr
-      %td= meal.name
+      %td= link_to meal.name, event_meal_path(@event, meal)
       %td= meal.head_count
-      %td= meal.start_time.to_time
-= link_to "Add Meal", "#", class: "fa fa-pencil-square-o bigger-125 btn btn-success"
+      %td= meal.start_time.to_time #TODO display in human format
+= link_to "Add Meal", new_event_meal_path(@event), class: "fa fa-pencil-square-o bigger-125 btn btn-success"
 

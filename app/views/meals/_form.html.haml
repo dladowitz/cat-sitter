@@ -1,3 +1,7 @@
+- if @meal.errors.any?
+  .form_validation_error
+    - @meal.errors.full_messages.each do |msg|
+      %li= msg
 
 = form_for [@event, @meal] do |f|
   = f.label :name

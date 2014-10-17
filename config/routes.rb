@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
   resources :events do
-    resources :meals, only: [:index, :new, :create]
+    resources :meals do
+      resources :dishes
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

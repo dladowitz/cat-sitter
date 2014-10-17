@@ -1,15 +1,11 @@
 require "rails_helper"
 
 describe MealsController do
-  let!(:event) { Event.create name: "Startup Weekend", start_date: 1.day.from_now, end_date: 3.days.from_now }
+  let(:event) { Event.create name: "Startup Weekend", start_date: 1.day.from_now, end_date: 3.days.from_now }
+  let(:meal) { event.meals.create(name: "Dinner", head_count: 99, start_time: event.start_date + 1.day) }
 
   describe "GET index" do
     subject { get :index, event_id: event.id }
-
-    #TODO get factory working
-    # let!(:future_meal) { create :meal, start_time: 1.day.from_now }
-    # let!(:past_meal  ) { create(:meal), start_time: 1.day.ago      }
-    let!(:meal)  { Meal.create  name: "Dinner", head_count: 100, event: event, start_time: event.start_date }
 
     before { subject }
 
@@ -67,6 +63,61 @@ describe MealsController do
         it "does not create a meal" do
           expect(event.reload.meals).to be_empty
         end
+      end
+    end
+  end
+
+  describe "GET show" do
+    subject { get :show, event_id: event.id, id: meal.id }
+    before { subject }
+
+    it "finds the correct meal" do
+      expect(assigns(:meal)).to eq meal
+    end
+
+    it "finds the correct event" do
+      expect(assigns(:event)).to eq event
+    end
+  end
+
+  describe "GET edit" do
+    subject { get :edit, event_id: event.id, id: meal.id }
+    before { subject }
+
+    it "finds the correct meal" do
+      expect(assigns(:meal)).to eq meal
+    end
+
+    it "finds the correct event" do
+      expect(assigns(:event)).to eq event
+    end
+  end
+
+  describe "PATCH update" do
+    subject { patch :update, params }
+    before { subject }
+
+    context "with valid params" do
+      let(:params) { { event_id: event.id, id: meal.id, meal: { name: "Snack" } } }
+
+      it "updates the meal correctly" do
+        expect(meal.reload.name).to eq "Snack"
+      end
+
+      it "updates the flash correctly" do
+        expect(flash[:notice]).to eq "Meal Updated."
+      end
+    end
+
+    context "with invalid params" do
+      let(:params) { { event_id: event.id, id: meal.id, meal:{ name: "snack", start_time: 1.year.ago } } }
+
+      it "does not update the meal" do
+        expect(meal.reload.name).to eq "Dinner"
+      end
+
+      it "has errors on the model" do
+        expect(assigns(:meal).errors[:start_time]).to be_present
       end
     end
   end

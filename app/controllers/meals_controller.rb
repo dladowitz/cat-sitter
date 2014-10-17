@@ -1,5 +1,6 @@
 class MealsController < ApplicationController
   before_filter :load_event
+  before_filter :load_meal, only: [:show, :edit, :update]
 
   def index
     @meals = @event.meals
@@ -10,8 +11,28 @@ class MealsController < ApplicationController
   end
 
   def create
-    @event.meals.create meal_params
-    redirect_to event_path @event
+    meal = @event.meals.create meal_params
+    if meal.errors.any?
+      @meal = meal
+      render :new
+    else
+      redirect_to event_path @event
+    end
+  end
+
+  def show
+  end
+
+  def edit
+  end
+
+  def update
+    if @meal.update(meal_params)
+      flash[:notice] = "Meal Updated."
+      redirect_to event_meal_path(@event, @meal)
+    else
+      render :edit
+    end
   end
 
   private
@@ -22,5 +43,9 @@ class MealsController < ApplicationController
 
   def load_event
     @event = Event.find(params[:event_id])
+  end
+
+  def load_meal
+    @meal = @event.meals.where(id: params[:id]).first
   end
 end

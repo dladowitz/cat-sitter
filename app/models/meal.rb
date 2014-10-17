@@ -1,6 +1,6 @@
 class Meal < ActiveRecord::Base
   belongs_to :event
-  # has_many :dishes
+  has_many :dishes
 
   validates :name, presence: true
   validates :event, presence: true
