@@ -1,0 +1,16 @@
+%h1 Dish
+%table#sample-table-1.table.table-striped.table-bordered.table-hover
+  %tr
+    %th Dish
+    %th Vegi
+    %th Vegan
+    %th Glu-Free
+    %th Ext Vendor
+    %th
+  %tr
+    %td= @dish.name
+    %td= @dish.vegetarian
+    %td= @dish.vegan
+    %td= @dish.gluten_free
+    %td= @dish.external_vendor
+    %td= link_to "Edit", "#", class: "fa fa-pencil-square-o bigger-50 btn btn-primary"

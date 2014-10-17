@@ -1,0 +1,14 @@
+%table#sample-table-1.table.table-striped.table-bordered.table-hover
+  %tr
+    %th Dish
+    %th Vegi
+    %th Vegan
+    %th Glu-Free
+    %th Ext Vendor
+  - @dishes.each do |dish|
+    %tr
+      %td= dish.name
+      %td= dish.vegetarian
+      %td= dish.vegan
+      %td= dish.gluten_free
+      %td= dish.external_vendor

@@ -1,0 +1,27 @@
+%h1 Meal
+
+%h3
+  = link_to @meal.name, edit_event_meal_path(@event, @meal)
+
+%h3 Dishes
+
+%table#sample-table-1.table.table-striped.table-bordered.table-hover
+  %tr
+    %th Dish
+    %th Vegi
+    %th Vegan
+    %th Glu-Free
+    %th Ext Vendor
+  - @meal.dishes.each do |dish|
+    %tr
+      %td= link_to dish.name, event_meal_dish_path(@event, @meal, dish)
+      %td= dish.vegetarian
+      %td= dish.vegan
+      %td= dish.gluten_free
+      %td= dish.external_vendor
+
+%h4
+  Head Count:
+  = @meal.head_count
+
+
